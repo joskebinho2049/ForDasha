@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎉 My Lucky Dasha 🎉</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #eeaeca, #edb2d6, #edb4d8, #e9ba94);
+            color: #827f7d;
+            font-family: 'Verdana', sans-serif;
+            text-align: center;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            margin: 0;
+            width: 100%;
+        }
+
+        .snowflake {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.2); 
+            font-size: 1.5em;
+            animation: fall linear infinite;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .sparkle {
+            font-size: 2em;
+            animation: sparkle 1.5s infinite alternate;
+            margin: 10px auto;
+            text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        @keyframes sparkle {
+            0% { transform: scale(1); color: #ffcc00; }
+            50% { transform: scale(1.2); color: #ff6699; }
+            100% { transform: scale(1); color: #66ccff; }
+        }
+
+        .message-box {
+            background: linear-gradient(135deg, #ffb3d9, #ff80bf);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3), inset 0 0 30px rgba(255, 255, 255, 0.4);
+            font-size: 1.1em;
+            color: #4d4c4c;
+            margin: 20px auto;
+            max-width: 90%;
+            cursor: pointer;
+            overflow: hidden;
+            transform: perspective(600px);
+            transition: height 0.3s ease, opacity 0.5s ease;
+            max-height: 70vh;
+            overflow-y: auto;
+            animation: gradientShift 50s ease-in-out infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background: linear-gradient(135deg, #ffb3d9, #ff80bf); }
+            25% { background: linear-gradient(135deg, #ff80bf, #ff99cc); }
+            50% { background: linear-gradient(135deg, #ff99cc, #ffb3d9); }
+            75% { background: linear-gradient(135deg, #ffb3d9, #ff80bf); }
+            100% { background: linear-gradient(135deg, #ff80bf, #ff99cc); }
+        }
+
+        .message-content {
+            display: none;
+            opacity: 20;
+            transition: opacity 0.5s ease;
+        }
+
+        .message-box.open .message-content {
+            display: block;
+            opacity: 1;
+        }
+
+        .thank-you {
+            font-size: 1.5em;
+            color: #cc0033;
+            margin: 10px auto;
+            animation: pulse 1.5s infinite alternate;
+            text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.1); }
+        }
+
+        .kirby-star {
+            position: absolute;
+            top: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 3em;
+            animation: star-fall 2s infinite;
+        }
+
+        @keyframes star-fall {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(100vh); opacity: 0; }
+        }
+
+        .fortune-cookie {
+            width: 80px;
+            height: 80px;
+            background: url('https://github.com/fcjoske/nikusha/blob/main/kirbywalk%20(1).gif?raw=true') no-repeat center;
+            background-size: contain;
+            cursor: pointer;
+            margin: 20px auto;
+            transition: transform 0.2s;
+        }
+
+        .fortune-cookie:hover {
+            transform: scale(1.1);
+        }
+
+        .fortune-message {
+            font-size: 1.2em;
+            color: #e28a18;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="sparkle">🎉 My Lucky Dasha 🎉</div>
+
+    <div class="message-box" onclick="toggleMessage(this)">
+        Click to open the letter! ✉️
+        <div class="message-content">
+            Dear Dasha, 🍀✨<br><br>
+
+            We met on Speaky just 20 minutes ago, but it already feels like 20 years… of chaotic, hilarious friendship (even if time travel isn't included in the app—yet).<br><br>
+
+            Somehow, we were born on the same day. Clearly, our parents had <i>very</i> similar calendars, but just slightly different years. Honestly, they were *so close*! It’s almost suspicious. Coincidence? Destiny? A glitch in the matrix? We may never know...<br><br>
+
+            I was writing this letter while waiting for your reply (yes, I had free time and a keyboard). My day was going okay, but after chatting with you, it improved by approximately <b>200%</b>. That’s math. Scientific. Trust me, I’m Brazilian. 😎<br><br>
+
+            I truly hope that someday we build a snowman together—yes, a real one. With arms, a carrot nose, and everything. And that this letter is just the <b>first of many absurdly delightful correspondences</b>.<br><br>
+
+            From your recently discovered old friend from Brazil (and possibly future snowman co-architect),<br>
+            <b>Felipe 🧓🌴</b><br><br>
+        </div>
+    </div>
+
+    <div class="thank-you">You're 1 in a million! 🍀</div>
+
+    <div class="kirby-star">✨</div>
+
+    <div class="fortune-cookie" onclick="showFortune()"></div>
+    <div class="fortune-message" id="fortuneMessage"></div>
+
+    <script>
+        function toggleMessage(box) {
+            box.classList.toggle('open');
+            const content = box.querySelector('.message-content');
+            content.style.display = box.classList.contains('open') ? 'block' : 'none';
+            content.style.opacity = box.classList.contains('open') ? '1' : '0';
+        }
+
+        const fortunes = [
+            "You will meet a tall, mysterious stranger... probably online. Probably today.",
+            "Your luck is improving—unless you try cooking. Then, all bets are off.",
+            "A surprise is waiting for you… possibly in the fridge.",
+            "You have a bright future… if your Wi-Fi stays connected.",
+            "Triaploski.",
+            "The universe believes in you. It just forgot to tell you.",
+            "Beware of fortune cookies giving unsolicited advice.",
+            "You will laugh today. Possibly at your own joke.",
+            "A snowman in your future holds secrets of friendship and frozen noses.",
+            "Your weirdness will attract excellent people. Starting now.",
+            "A random Brazilian named Felipe may change your destiny. No refunds.",
+            "Someone out there thinks you’re amazing. Hint: it might be Felipe.",
+            "Laughter is the best medicine—unless you have a cold. Then try tea.",
+            "You have an incredible sense of humor. Or you’re just sleep-deprived.",
+            "Luck is coming… wearing flip-flops and humming a samba.",
+            "If you build it, they will come. Especially if it's a snowman.",
+            "You are the chosen one… for something. We’re still figuring out what.",
+            "The stars say: take a nap. You've earned it.",
+            "Trust your instincts. Unless your instincts tell you to text your ex.",
+            "Great things are ahead. Also socks. Wear good socks."
+        ];
+
+        function showFortune() {
+            const message = fortunes[Math.floor(Math.random() * fortunes.length)];
+            document.getElementById('fortuneMessage').innerText = message;
+        }
+    </script>
+</body>
+</html>
